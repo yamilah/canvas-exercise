@@ -11,21 +11,20 @@
     var canvas = document.getElementById("canvas");
     var context = canvas.getContext("2d");
 
-    var mouse;
+    var mouse = { x: 0, y: 0 };
     canvas.addEventListener("mousemove", function(event) {
       var canvasRect = canvas.getBoundingClientRect();
         mouse = {
-          x: 
+          x: event.clientX - canvasRect.x,
+          y: event.clientY - canvasRect.y
         };
     });
 
-    var x = 300;
     var update = function() {
       context.clearRect(0, 0, canvas.width, canvas.height);
 
-      x += 2;
       context.beginPath();
-      context.arc(x, 200, 50, 0, Math.PI*2);
+      context.arc(mouse.x, mouse.y, 50, 0, Math.PI*2);
       context.closePath;
       context.fill();
 
