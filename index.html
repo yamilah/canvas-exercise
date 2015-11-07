@@ -17,6 +17,10 @@
       pressed: false
     };
     var radius, displayRadius = 0;
+    var position = {
+      x: canvas.width/2,
+      y: canvas.height/2
+    };
 
     canvas.addEventListener("mousemove", function(event) {
       var canvasRect = canvas.getBoundingClientRect();
@@ -33,13 +37,16 @@
     });
 
     var update = function() {
-      radius = mouse.pressed ? 30 : 50;
+      radius = mouse.pressed ? 20 : 30;
       displayRadius += (radius - displayRadius)/4;
+
+      position.x += (mouse.x - position.x)/6;
+      position.y += (mouse.y - position.y)/6;
 
       context.clearRect(0, 0, canvas.width, canvas.height);
 
       context.beginPath();
-      context.arc(mouse.x, mouse.y, displayRadius, 0, Math.PI*2);
+      context.arc(position.x, position.y, displayRadius, 0, Math.PI*2);
       context.closePath;
       context.fill();
 
