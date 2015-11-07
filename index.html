@@ -11,13 +11,21 @@
     var canvas = document.getElementById("canvas");
     var context = canvas.getContext("2d");
 
-    var mouse = { x: 0, y: 0 };
+    var mouse = { x: 0, y: 0, pressed: false };
     canvas.addEventListener("mousemove", function(event) {
       var canvasRect = canvas.getBoundingClientRect();
         mouse = {
           x: event.clientX - canvasRect.x,
           y: event.clientY - canvasRect.y
         };
+    });
+
+    canvas.addEventListener("mousedown", function(event) {
+      mouse.pressed = true;
+    });
+
+    canvas.addEventListener("mouseup", function(event) {
+      mouse.pressed = false;
     });
 
     var update = function() {
