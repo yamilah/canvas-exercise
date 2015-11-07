@@ -11,13 +11,17 @@
     var canvas = document.getElementById("canvas");
     var context = canvas.getContext("2d");
 
-    var mouse = { x: 0, y: 0, pressed: false };
-    var radius;
+    var mouse = {
+      x: canvas.width/2,
+      y: canvas.height/2,
+      pressed: false
+    };
+    var radius, displayRadius = 0;
 
     canvas.addEventListener("mousemove", function(event) {
       var canvasRect = canvas.getBoundingClientRect();
       mouse.x = event.clientX - canvasRect.x;
-        mouse.y = event.clientY - canvasRect.y;
+      mouse.y = event.clientY - canvasRect.y;
     });
 
     canvas.addEventListener("mousedown", function(event) {
@@ -30,11 +34,12 @@
 
     var update = function() {
       radius = mouse.pressed ? 30 : 50;
+      displayRadius += (radius - displayRadius)/4;
 
       context.clearRect(0, 0, canvas.width, canvas.height);
 
       context.beginPath();
-      context.arc(mouse.x, mouse.y, radius, 0, Math.PI*2);
+      context.arc(mouse.x, mouse.y, displayRadius, 0, Math.PI*2);
       context.closePath;
       context.fill();
 
