@@ -11,6 +11,8 @@
     var canvas = document.getElementById("canvas");
     var context = canvas.getContext("2d");
 
+    var dt, previousTime, currentTime = Date.now();
+
     var mouse = {
       x: canvas.width/2,
       y: canvas.height/2,
@@ -37,11 +39,16 @@
     });
 
     var update = function() {
-      radius = mouse.pressed ? 20 : 30;
-      displayRadius += (radius - displayRadius)/4;
+      previousTime = currentTime;
+      currentTime = Date.now();
+      dt = (currentTime - previousTime)/1000;
+      console.log(dt);
 
-      position.x += (mouse.x - position.x)/6;
-      position.y += (mouse.y - position.y)/6;
+      radius = mouse.pressed ? 20 : 30;
+      displayRadius += (radius - displayRadius)*15*dt;
+
+      position.x += (mouse.x - position.x)*8*dt;
+      position.y += (mouse.y - position.y)*8*dt;
 
       context.clearRect(0, 0, canvas.width, canvas.height);
 
