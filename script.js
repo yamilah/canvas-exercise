@@ -9,12 +9,14 @@
     y: canvas.height/2,
     pressed: false
   };
+  
   var radius, displayRadius = 0;
   var position = {
     x: canvas.width/2,
     y: canvas.height/2
   };
 
+var init = function() {
   canvas.addEventListener("mousemove", function(event) {
     var canvasRect = canvas.getBoundingClientRect();
     mouse.x = event.clientX - canvasRect.x;
@@ -28,6 +30,9 @@
   canvas.addEventListener("mouseup", function(event) {
     mouse.pressed = false;
   });
+
+  requestAnimationFrame(update);
+};
 
   var update = function() {
     previousTime = currentTime;
@@ -46,13 +51,14 @@
     context.fill();
 
     context.beginPath();
-    context.fillStyle = "salmon";
+    context.fillStyle = "black";
     context.arc(position.x, position.y, displayRadius, 0, Math.PI*2);
-    context.closePath;
+    context.closePath();
     context.fill();
 
     requestAnimationFrame(update);
   };
 
-  update();
+init();
+
 })();
