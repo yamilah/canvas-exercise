@@ -41,8 +41,12 @@
     position.y += (mouse.y - position.y)*8*dt;
 
     context.clearRect(0, 0, canvas.width, canvas.height);
+    context.fillStyle = "white";
+    context.fillRect(0, 0, canvas.width, canvas.height);
+    context.fill();
 
     context.beginPath();
+    context.fillStyle = "salmon";
     context.arc(position.x, position.y, displayRadius, 0, Math.PI*2);
     context.closePath;
     context.fill();
