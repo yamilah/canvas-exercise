@@ -1,10 +1,11 @@
 (function() {
+  // Global variables.
   var canvas, context;
   var dt, previousTime, currentTime;
   var mouse;
   var player;
 
-  /* PLAYER OBJECT */
+  // Player object.
   var Player = function(x, y) {
     this.position = {
       x: x,
@@ -27,7 +28,7 @@
     context.fill();
   };
 
-/* GLOBAL STATE */
+// Global state.
 var init = function() {
   canvas = document.getElementById("canvas");
   context = canvas.getContext("2d");
