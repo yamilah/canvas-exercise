@@ -21,12 +21,32 @@
     this.position.x += (mouse.x - this.position.x)*8*dt;
     this.position.y += (mouse.y - this.position.y)*8*dt;
 
-    context.beginPath();
-    context.fillStyle = "black";
-    context.arc(this.position.x, this.position.y, this.displayRadius, 0, Math.PI*2);
-    context.closePath();
-    context.fill();
+    drawCircle(this.position.x, this.position.y, this.displayRadius, "black");
   };
+
+var Explosion = function(x, y) {
+  this.position = {
+    x: x,
+    y: y
+  };
+  this.radius = 0;
+};
+
+Explosion.prototype.MAX_RADIUS = 200;
+
+Explosion.prototype.update = function(dt) {
+  this.radius.x += (this.MAX_RADIUS - this.radius)*8*dt;
+
+  drawCircle(this.position.x, this.position.y, this.radius, "red");
+};
+
+var drawCircle = function(x, y, radius, fillStyle) {
+  context.beginPath();
+  context.fillStyle = fillStyle;
+  context.arc(x, y, radius, 0, Math.PI*2);
+  context.closePath();
+  context.fill();
+};
 
 // Global state.
 var init = function() {
