@@ -4,6 +4,7 @@
   var dt, previousTime, currentTime;
   var mouse;
   var player;
+  var explosions;
 
   // Player object.
   var Player = function(x, y) {
@@ -32,10 +33,10 @@
     this.radius = 0;
   };
 
-  Explosion.prototype.MAX_RADIUS = 200;
+  Explosion.prototype.MAX_RADIUS = 80;
 
   Explosion.prototype.update = function(dt) {
-    this.radius.x += (this.MAX_RADIUS - this.radius)*8*dt;
+    this.radius += (this.MAX_RADIUS - this.radius)*8*dt;
 
     drawCircle(this.position.x, this.position.y, this.radius, "red");
   };
@@ -69,6 +70,8 @@
 
     canvas.addEventListener("mousedown", function(event) {
       mouse.pressed = true;
+
+      explosions.push(new Explosion(player.position.x, player.position.y));
     });
 
     canvas.addEventListener("mouseup", function(event) {
@@ -76,6 +79,7 @@
     });
 
     player = new Player(canvas.width/2, canvas.height/2);
+    explosions = [];
 
     requestAnimationFrame(update);
   };
@@ -90,6 +94,9 @@
     context.fillRect(0, 0, canvas.width, canvas.height);
     context.fill();
 
+    for (var explosion in explosions) {
+      explosions[explosion].update(dt);
+    };
     player.update(dt);
 
     requestAnimationFrame(update);
